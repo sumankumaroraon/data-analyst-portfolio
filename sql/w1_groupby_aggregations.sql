@@ -1,5 +1,5 @@
 -- ================================================
--- Week 1 | Day 2 | Topic: GROUP BY and Aggregations
+-- Topic: GROUP BY and Aggregations
 -- Dataset: Superstore (9994 rows)
 -- Business Focus: Revenue and Profit Analysis
 -- ================================================

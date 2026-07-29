@@ -1,5 +1,5 @@
 -- ================================================
--- Week 1 | Day 2 | Topic: JOINs
+-- Topic: JOINs
 -- Dataset: Superstore (9994 rows)
 -- Note: Superstore is one table
 -- We simulate joins using subqueries and CTEs
