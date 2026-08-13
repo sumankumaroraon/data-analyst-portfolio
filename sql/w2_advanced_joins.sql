@@ -102,3 +102,48 @@ WHERE s.sales  > cb.avg_sales
 AND   s.profit > cb.avg_profit
 ORDER BY s.category, s.profit DESC;
 -- Result: Orders that beat both benchmarks in their category
+
+-- ================================================
+-- Week 2 | Day 6 | Topic: Advanced JOINs
+-- Dataset: Northwind
+-- ================================================
+
+-- ================================================
+-- SECTION 1: ANTI JOIN PATTERNS
+-- Finding rows with NO match in another table
+-- ================================================
+
+-- Method 1: LEFT JOIN + IS NULL
+-- Find customers who never placed an order
+SELECT c.customer_id,
+       c.company_name,
+       c.country
+FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id
+WHERE o.customer_id IS NULL;
+-- Result: FISSA (Spain) and PARIS (France)
+-- 98% customer activation rate
+
+-- Method 2: NOT EXISTS (recommended for large tables)
+-- Safer and faster than NOT IN
+SELECT c.customer_id,
+       c.company_name,
+       c.country
+FROM customers c
+WHERE NOT EXISTS (
+    SELECT 1 FROM orders o
+    WHERE o.customer_id = c.customer_id
+);
+-- Same result as Method 1
+
+-- Method 3: NOT IN (use with caution)
+-- DANGEROUS: returns 0 rows if subquery has any NULLs
+-- Safe here because Northwind has no NULL customer_ids
+SELECT customer_id,
+       company_name,
+       country
+FROM customers
+WHERE customer_id NOT IN (
+    SELECT DISTINCT customer_id FROM orders
+);
+-- Same result but avoid in production code
